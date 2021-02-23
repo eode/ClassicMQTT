@@ -1,4 +1,5 @@
 import socket
+import re
 import logging
 import sys, getopt
 
@@ -20,7 +21,7 @@ def validateURLParameter(param, name, defaultValue):
         # check each hostname segment
         allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
         assert all(allowed.match(s) for s in hostname.split("."))
-    except:
+    except AssertionError:
         log.error("Invalid parameter, {} passed for {}".format(param, name))
         return defaultValue
     try:
